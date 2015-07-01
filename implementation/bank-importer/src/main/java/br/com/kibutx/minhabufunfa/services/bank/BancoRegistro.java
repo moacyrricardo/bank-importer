@@ -14,6 +14,10 @@ public class BancoRegistro implements Serializable {
 	private String descricao;
 
 	private boolean entrada = false;
+	
+	private BigDecimal exchangeRate = new BigDecimal("1.0");
+	
+	private String currency = "BRL";
 
 	public Date getData() {
 		return data;
@@ -45,5 +49,21 @@ public class BancoRegistro implements Serializable {
 
 	public void setEntrada(boolean entrada) {
 		this.entrada = entrada;
+	}
+
+	public BigDecimal getExchangeRate() {
+		return exchangeRate;
+	}
+
+	public void setExchangeRate(BigDecimal exchangeRate) {
+		this.exchangeRate = exchangeRate;
+	}
+
+	public String getCurrency() {
+		return currency;
+	}
+
+	public void setCurrency(String currency) {
+		this.currency = currency;
 	}
 }
