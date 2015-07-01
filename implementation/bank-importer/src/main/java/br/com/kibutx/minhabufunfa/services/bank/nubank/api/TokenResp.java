@@ -9,6 +9,7 @@ public class TokenResp implements Serializable {
 	public static final int SUCCESS_CODE = 200;
 
 	private String access_token;
+	private String refresh_token;
 	private String token_type;
 
 	public String getAccess_token() {
@@ -17,6 +18,14 @@ public class TokenResp implements Serializable {
 
 	public void setAccess_token(String access_token) {
 		this.access_token = access_token;
+	}
+
+	public String getRefresh_token() {
+		return refresh_token;
+	}
+
+	public void setRefresh_token(String refresh_token) {
+		this.refresh_token = refresh_token;
 	}
 
 	public String getToken_type() {
