@@ -3,6 +3,8 @@ package br.com.kibutx.minhabufunfa.services.bank;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
+import java.util.LinkedList;
+import java.util.List;
 
 public class BancoRegistro implements Serializable {
 	private static final long serialVersionUID = 6922072443981360581L;
@@ -18,6 +20,8 @@ public class BancoRegistro implements Serializable {
 	private BigDecimal exchangeRate = new BigDecimal("1.0");
 	
 	private String currency = "BRL";
+	
+	private List<String> tags = new LinkedList<String>();
 
 	public Date getData() {
 		return data;
@@ -65,5 +69,13 @@ public class BancoRegistro implements Serializable {
 
 	public void setCurrency(String currency) {
 		this.currency = currency;
+	}
+
+	public List<String> getTags() {
+		return tags;
+	}
+
+	public void setTags(List<String> tags) {
+		this.tags = tags;
 	}
 }
