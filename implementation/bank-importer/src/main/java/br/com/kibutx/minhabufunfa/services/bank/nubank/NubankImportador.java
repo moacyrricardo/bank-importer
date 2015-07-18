@@ -21,6 +21,7 @@ import org.jboss.resteasy.client.core.executors.ApacheHttpClient4Executor;
 import br.com.kibutx.minhabufunfa.services.bank.BancoImportador;
 import br.com.kibutx.minhabufunfa.services.bank.BancoRegistro;
 import br.com.kibutx.minhabufunfa.services.bank.nubank.api.NubankAPI;
+import br.com.kibutx.minhabufunfa.services.bank.nubank.api.NubankBillSummary;
 import br.com.kibutx.minhabufunfa.services.bank.nubank.api.RegistrationReq;
 import br.com.kibutx.minhabufunfa.services.bank.nubank.api.RegistrationResp;
 import br.com.kibutx.minhabufunfa.services.bank.nubank.api.TokenReq;
@@ -95,7 +96,10 @@ public class NubankImportador extends SimpleHttpQuerier implements BancoImportad
 				br.setValor(new BigDecimal(""+(-1.0*trans.getAmount().doubleValue()/100.0)));
 				regs.add(br);
 			}
-			for(NubankBill bill : accountsApi.bills(authBearer, acc.getId()).getEntity().getBills()){
+//			if("ao".equals("bla"))
+			List<NubankBillSummary> billsSumm = accountsApi.billsSummary(authBearer, acc.getId()).getEntity().getBills();
+			for(NubankBillSummary bSumm : billsSumm){
+				NubankBill bill = accountsApi.bill(authBearer, bSumm.get_links().get(0).getType()).getEntity().getBill() ;
 				for(Map<String,NubankBillItem> map : bill.getLine_items()){
 					for(String ent:map.keySet()){
 						NubankBillItem it = map.get(ent);

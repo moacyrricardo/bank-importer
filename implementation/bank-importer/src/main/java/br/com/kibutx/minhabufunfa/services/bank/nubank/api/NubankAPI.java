@@ -61,9 +61,16 @@ public interface NubankAPI {
 	public ClientResponse<AccountTransactionsResp> transactions(@HeaderParam("Authorization") String authParam, @PathParam("id") String accountId, @QueryParam("since") String since, @QueryParam("transactions-version") String version);
 
 	@GET
-	@Path("/accounts/{id}/bills")
+	@Path("/accounts/{id}/bills/summary")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	public ClientResponse<AccountBillsResp> bills(@HeaderParam("Authorization") String authBearer, @PathParam("id") String accountId);
+	public ClientResponse<AccountBillsResp> billsSummary(@HeaderParam("Authorization") String authBearer, @PathParam("id") String accountId);
+	
+
+	@GET
+	@Path("/bills/{id}")
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	public ClientResponse<BillsResp> bill(@HeaderParam("Authorization") String authBearer, @PathParam("id") String billId);
 	
 }
