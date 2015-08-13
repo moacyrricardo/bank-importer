@@ -66,7 +66,19 @@ public interface NubankAPI {
 	@Produces(MediaType.APPLICATION_JSON)
 	public ClientResponse<AccountBillsResp> billsSummary(@HeaderParam("Authorization") String authBearer, @PathParam("id") String accountId);
 	
+	@GET
+	@Path("/accounts/{id}/bills/summary")
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	public ClientResponse<String> billsSummary(@HeaderParam("Authorization") String authBearer, @PathParam("id") String accountId, @HeaderParam("accept-encoding") String encoding);
+	
 
+	@GET
+	@Path("/accounts/{id}/bills/{state}")
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	public ClientResponse<BillsResp> billByState(@HeaderParam("Authorization") String authBearer, @PathParam("id") String accountId, @PathParam("state") String state);
+	
 	@GET
 	@Path("/bills/{id}")
 	@Consumes(MediaType.APPLICATION_JSON)

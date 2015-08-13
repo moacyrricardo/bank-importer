@@ -13,11 +13,10 @@ public class NubankBillItem implements Serializable {
 	private static final long serialVersionUID = -8522409039531320734L;
 	private String id;
 	private Integer amount;
-	private Integer paid;
 	private String post_date;
-	private String description;
+	private String title;
 	private NubankBillItemType type;
-	private NubankTransaction transaction;
+	private String href;
 
 	public String getId() {
 		return id;
@@ -33,14 +32,6 @@ public class NubankBillItem implements Serializable {
 
 	public void setAmount(Integer amount) {
 		this.amount = amount;
-	}
-
-	public Integer getPaid() {
-		return paid;
-	}
-
-	public void setPaid(Integer paid) {
-		this.paid = paid;
 	}
 
 	public String getPost_date() {
@@ -60,19 +51,24 @@ public class NubankBillItem implements Serializable {
 		this.post_date = post_date;
 	}
 
-	public String getDescription() {
-		return description;
+	public String getTitle() {
+		return title;
 	}
 
-	public void setDescription(String description) {
-		this.description = description;
+	public void setTitle(String description) {
+		this.title = description;
 	}
 
 	public NubankBillItemType getType() {
 		if(type == null){
-			if(amount + paid == 0){
-				type = NubankBillItemType.payment;
-			} else {
+			type = NubankBillItemType.other;	
+			if(amount < 0){
+				if("Pagamento recebido".equals(getTitle())){
+					type = NubankBillItemType.payment;
+				} else {
+					type = NubankBillItemType.reversal;
+				}
+			} else if(amount > 0){
 				type = NubankBillItemType.charge;
 			}
 		}
@@ -83,12 +79,12 @@ public class NubankBillItem implements Serializable {
 		this.type = type;
 	}
 
-	public NubankTransaction getTransaction() {
-		return transaction;
+	public String getHref() {
+		return href;
 	}
 
-	public void setTransaction(NubankTransaction transaction) {
-		this.transaction = transaction;
+	public void setHref(String href) {
+		this.href = href;
 	}
 
 }

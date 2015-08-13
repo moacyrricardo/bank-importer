@@ -11,13 +11,13 @@ public class AccountBillsResp implements Serializable {
 
 	private static final long serialVersionUID = -8564210258724620335L;
 	
-	List<NubankBillSummary> bills = new ArrayList<NubankBillSummary>();
+	List<NubankBill> bills = new ArrayList<NubankBill>();
 
-	public List<NubankBillSummary> getBills() {
+	public List<NubankBill> getBills() {
 		return bills;
 	}
 
-	public void setBills(List<NubankBillSummary> bills) {
+	public void setBills(List<NubankBill> bills) {
 		this.bills = bills;
 	}
 	

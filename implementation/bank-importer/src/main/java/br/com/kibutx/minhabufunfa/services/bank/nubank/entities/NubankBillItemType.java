@@ -10,5 +10,6 @@ public enum NubankBillItemType {
 	 * Item de fatura
 	 */
 	charge,
+	reversal,
 	other;
 }
