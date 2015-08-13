@@ -7,6 +7,7 @@ import java.util.Date;
 import java.util.List;
 
 import org.codehaus.jackson.annotate.JsonIgnoreProperties;
+import org.codehaus.jackson.annotate.JsonProperty;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class NubankTransaction implements Serializable {
@@ -22,6 +23,9 @@ public class NubankTransaction implements Serializable {
 	private List<NubankCharge> charges_list;
 	private String country;
 	private NubankTransactionType type;
+	private NubankExchange fx;
+	
+	private Status status;
 
 	public String getId() {
 		return id;
@@ -116,5 +120,26 @@ public class NubankTransaction implements Serializable {
 
 	public void setType(NubankTransactionType type) {
 		this.type = type;
+	}
+
+	public Status getStatus() {
+		return status;
+	}
+
+	public void setStatus(Status status) {
+		this.status = status;
+	}
+	
+	public NubankExchange getFx() {
+		return fx;
+	}
+
+	public void setFx(NubankExchange fx) {
+		this.fx = fx;
+	}
+
+
+	public static enum Status {
+		settled, unsettled, canceled
 	}
 }
