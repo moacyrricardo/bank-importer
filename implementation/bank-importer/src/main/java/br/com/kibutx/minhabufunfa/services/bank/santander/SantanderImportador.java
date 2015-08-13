@@ -1,6 +1,7 @@
 package br.com.kibutx.minhabufunfa.services.bank.santander;
 
 import java.io.ByteArrayOutputStream;
+import java.io.File;
 import java.io.FileOutputStream;
 import java.math.BigInteger;
 import java.net.URI;
@@ -56,6 +57,8 @@ public class SantanderImportador extends SimpleHttpQuerier implements
 	public static final String MODULUS = "10001";
 
 	String begining = "http://m.santander.com.br/santandermovel/";
+	
+	String tempFileRequest = System.getProperty("user.home")+File.separatorChar+"santander.last.request.html";
 
 	@Override
 	protected boolean shouldPersistCookie(BasicClientCookie ck) {
@@ -70,8 +73,7 @@ public class SantanderImportador extends SimpleHttpQuerier implements
 		try {
 			HttpResponse resp = client.execute(hp);
 			ByteArrayOutputStream baos = new ByteArrayOutputStream();
-			FileOutputStream faos = new FileOutputStream(
-					"C:/Users/Moacyr/Desktop/bla.html");
+			FileOutputStream faos = new FileOutputStream( tempFileRequest);
 			resp.getEntity().writeTo(baos);
 			String html = new String(baos.toByteArray(), ENCODING);
 			baos.close();
@@ -156,7 +158,7 @@ public class SantanderImportador extends SimpleHttpQuerier implements
 			// if (codes.contains(resp.getStatusLine().getStatusCode())) {
 			ByteArrayOutputStream baos = new ByteArrayOutputStream();
 			FileOutputStream faos = new FileOutputStream(
-					"C:/Users/Moacyr/Desktop/bla.html");
+					tempFileRequest);
 			resp.getEntity().writeTo(baos);
 			String html = new String(baos.toByteArray(), ENCODING);
 			baos.close();
