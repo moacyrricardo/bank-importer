@@ -1,6 +1,7 @@
 package br.com.kibutx.minhabufunfa.services.bank.itau;
 
 import java.io.ByteArrayOutputStream;
+import java.io.File;
 import java.io.FileOutputStream;
 import java.math.BigDecimal;
 import java.text.ParseException;
@@ -90,8 +91,8 @@ public class ItauImportador extends SimpleHttpQuerier implements BancoImportador
 
 	private void applyItauHeaders(HttpRequestBase hrb){
 		hrb.addHeader(HttpHeaders.USER_AGENT, "Mozilla/5.0 (Linux; U; Android 4.0.3; ko-kr; LG-L160L Build/IML74K) AppleWebkit/534.30 (KHTML, like Gecko) Version/4.0 Mobile Safari/534.30");
-		hrb.addHeader(HttpHeaders.ACCEPT, "text/html; charset=UTF-8");
-		hrb.addHeader(HttpHeaders.ACCEPT_CHARSET, "UTF-8");
+		hrb.addHeader(HttpHeaders.ACCEPT, "text/html; charset="+ENCODING);
+		hrb.addHeader(HttpHeaders.ACCEPT_CHARSET, ENCODING);
 		hrb.addHeader(HttpHeaders.CONNECTION, "keep-alive");
 		hrb.addHeader(HttpHeaders.HOST, "ww70.itau.com.br");
 		hrb.addHeader("ORIGIN", "https://ww70.itau.com.br");
@@ -233,7 +234,7 @@ public class ItauImportador extends SimpleHttpQuerier implements BancoImportador
 			HttpResponse resp = client.execute(httpGet);
 			if (codes.contains(resp.getStatusLine().getStatusCode())) {
 				ByteArrayOutputStream baos = new ByteArrayOutputStream();
-				FileOutputStream faos = new FileOutputStream("C:/Users/Moacyr/Desktop/bla.html");
+				FileOutputStream faos = new FileOutputStream(System.getProperty("user.home")+File.separatorChar+"itau.last.request.html");
 				resp.getEntity().writeTo(baos);
 				String html = new String(baos.toByteArray(), ENCODING);
 				baos.close();
@@ -349,27 +350,5 @@ public class ItauImportador extends SimpleHttpQuerier implements BancoImportador
 			connMan.closeIdleConnections(1, TimeUnit.MILLISECONDS);
 		}
 		return null;
-	}
-
-	public static void main(String[] args) {
-		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-//		System.getProperties().put( "proxySet", "true" );
-//		System.getProperties().put( "socksProxyHost", "localhost" );
-//		System.getProperties().put( "socksProxyPort", "10002" );
-//		System.setProperty("http.proxyHost", "localhost");
-//		System.setProperty("http.proxyPort", "10002");
-//		System.setProperty("https.proxyHost", "localhost");
-//		System.setProperty("https.proxyPort", "10002");
-
-		ItauImportador ii = new ItauImportador();
-//		System.out.println(ii.getUrlFormLogin());
-		ii.login("agencia", "conta", "dv", "password");
-		for(BancoRegistro lanc: ii.carregarLancamentosExtrato()){
-			System.out.println(sdf.format(lanc.getData())+"\t"+lanc.getDescricao()+ "\t"+lanc.getValor());
-		}
-//		System.out.println("Poupança");
-//		for(BancoRegistro lanc: ii.carregarLancamentosExtratoPoupanca()){
-//			System.out.println(sdf.format(lanc.getData())+"\t"+lanc.getDescricao()+ "\t"+lanc.getValor());
-//		}
 	}
 }
