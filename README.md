@@ -12,3 +12,28 @@ Depends on authentication through id (agency+account or cpf) + password
 # future
  1. [ ] transaction currency
  2. [ ] Nubank: grouped Related transactions
+
+BancoSyncer Usage
+====
+Create a file on your home directory named *bancosyncer.config*.
+
+Run the class: 
+```java
+br.com.kibutx.minhabufunfa.services.bank.BancoSyncer
+```
+```
+####engines
+engines=itau,itaup
+
+itau.class=.itau.ItauImportador
+##method,agency,account,verify digit,eletronic password
+itau.config=login,0000,00000,0,000000
+
+itaup.class=.itau.ItauPoupancaImportador
+##method,agency,account,verify digit,eletronic password
+itaup.config=login,0000,00000,0,000000
+
+nubank.class=.nubank.NubankImportador
+##method,cpf,eletronic password
+nubank.config=login,cpf,password
+```
