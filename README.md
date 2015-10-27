@@ -16,11 +16,6 @@ Depends on authentication through id (agency+account or cpf) + password
 BancoSyncer Usage
 ====
 Create a file on your home directory named *bancosyncer.config*.
-
-Run the class: 
-```java
-br.com.kibutx.minhabufunfa.services.bank.BancoSyncer
-```
 ```
 ####engines
 engines=itau,itaup
@@ -36,4 +31,8 @@ itaup.config=login,0000,00000,0,000000
 nubank.class=.nubank.NubankImportador
 ##method,cpf,eletronic password
 nubank.config=login,cpf,password
+```
+Run the class: 
+```java
+br.com.kibutx.minhabufunfa.services.bank.BancoSyncer
 ```
